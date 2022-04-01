@@ -25,7 +25,7 @@
                     <a class="nav-item nav-link active" href="<?= base_url(); ?>">Beranda <span class="sr-only">(current)</span></a>
                     <?php 
                     if(!empty($this->session->userdata('email'))) { ?>
-                    <a class="nav-item nav-link "href="#">Booking Bubku</a>
+                    <a class="nav-item nav-link "href="#">Booking Buku</a>
 
                     <a class="nav-item nav-link" href="<?= base_url('member/myprofil'); ?>">Profil Saya</a>
                     <a class="nav-item nav-link" href="<?= base_url('member/logout'); ?>"><i class="fas fw fa-login"></i>Logout</a>
