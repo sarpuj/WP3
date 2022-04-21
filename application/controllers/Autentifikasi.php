@@ -33,28 +33,30 @@ class Autentifikasi extends CI_Controller
     {
         $email = htmlspecialchars($this->input->post('email', true));
         $password = $this->input->post('password', true);
-
         $user = $this->ModelUser->cekData(['email' => $email])->row_array();
-
         //jika usernya ada
         if ($user) {
-            //jika user sudah aktif
-            if ($user['is_active'] == 1) {
-                //cek password
-                if (password_verify($password, $user['password'])) {
-                    $data = [
-                        'email' => $user['email'],
-                        'role_id' => $user['role_id']
-                    ];
-
-                    $this->session->set_userdata($data);
-                    redirect('admin');
+            if ($user['role_id'] == 1) {
+                //jika user sudah aktif
+                if ($user['is_active'] == 1) {
+                    //cek password
+                    if (password_verify($password, $user['password'])) {
+                        $data = [
+                            'email' => $user['email'],
+                            'role_id' => $user['role_id']
+                        ];
+                        $this->session->set_userdata($data);
+                        redirect('admin');
+                    } else {
+                        $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-message" role="alert">Password salah!!</div>');
+                        redirect('autentifikasi');
+                    }
                 } else {
-                    $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-message" role="alert">Password salah!!</div>');
+                    $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-message" role="alert">User belum diaktifasi!!</div>');
                     redirect('autentifikasi');
                 }
             } else {
-                $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-message" role="alert">User belum diaktifasi!!</div>');
+                $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-message" role="alert">Anda Tidak Dizinkan!!</div>');
                 redirect('autentifikasi');
             }
         } else {
