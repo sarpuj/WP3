@@ -135,12 +135,11 @@ class Booking extends CI_Controller
             redirect(base_url());
         } else {
             $data['items'] = $this->db->query("select*from booking bo, booking_detail d, buku bu where d.id_booking=bo.id_booking and d.id_buku=bu.id and bo.id_user='$id_user'")->result_array();
-            //script untuk dompdf php versi 5
-            $this->load->library('dompdf_gen');
+
             // script untuk dompdf php versi 7.1.0 keatas
-            /*$sroot = $_SERVER['DOCUMENT_ROOT'];
-include $sroot."/pustaka-booking/application/third_party/dompdf/autoload.inc.php";
-$dompdf = new Dompdf\Dompdf();*/
+            $sroot = $_SERVER['DOCUMENT_ROOT'];
+            include $sroot . "/pustaka-booking/application/third_party/dompdf/autoload.inc.php";
+            $dompdf = new Dompdf\Dompdf();
             $this->load->view('booking/bukti-pdf', $data);
             $paper_size = 'A4'; // ukuran kertas
             $orientation = 'landscape'; //tipe format kertas potrait atau landscape

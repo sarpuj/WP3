@@ -67,7 +67,8 @@ class Pinjam extends CI_Controller
         $this->ModelPinjam->deleteData('booking', ['id_booking' => $id_booking]);
         $this->ModelPinjam->deleteData('booking_detail', ['id_booking' => $id_booking]);
         //$this->db->query("DELETE FROM booking WHERE id_booking='$id_booking'");
-        //update dibooking dan dipinjam pada tabel buku saat buku yang dibooking diambil untuk dipinjam $this->db->query("UPDATE buku, detail_pinjam SET buku.dipinjam=buku.dipinjam+1, buku.dibooking=buku.dibooking-1 WHERE buku.id=detail_pinjam.id_buku and no_pinjam='$no_pinjam'");
+        //update dibooking dan dipinjam pada tabel buku saat buku yang dibooking diambil untuk dipinjam 
+        $this->db->query("UPDATE buku, detail_pinjam SET buku.dipinjam=buku.dipinjam+1, buku.dibooking=buku.dibooking-1 WHERE buku.id=detail_pinjam.id_buku and no_pinjam='$no_pinjam'");
         $this->session->set_flashdata('pesan', '<div class="alert alert-massege alert-success" role="alert">Data Peminjaman Berhasil Disimpan</div>');
         redirect(base_url() . 'pinjam');
     }
